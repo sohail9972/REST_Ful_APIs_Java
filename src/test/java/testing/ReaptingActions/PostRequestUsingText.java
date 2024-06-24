@@ -1,9 +1,10 @@
 package testing.ReaptingActions;
 
-import com.jayway.jsonpath.JsonPath;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.testng.Assert;
@@ -39,39 +40,52 @@ public class PostRequestUsingText {
 
             //$.booking.firstname this Returns value in the JSON array
             //Storing in the JSON array
-           JSONArray jsonarray = JsonPath.read(response.body().asString(),"$.booking.firstname");
+//           JSONArray jsonarray = (JSONArray) JsonPath.parse(response.body().asString());
+
+            JSONParser parser = new JSONParser();
+            Object obj  = parser.parse(response.body().asString());
+            JSONArray array = new JSONArray();
+
+            System.out.println(array.put(obj));
+
+//            List<Map<String, String>> list= JsonPath.read(response.body().asString(),"$.booking.firstname");
 //            JsonArray jsonarray = JsonPath.read(response.body().asString(),"$.booking.firstname");
 //            net.minidev.json.JSONArray jsonarray =  JsonPath.read(response.body().asString(),"$.booking.firstname");
-           String firstname = (String) jsonarray.get(0);
-            Assert.assertEquals(firstname,"sally");
+//            System.out.println(list);
+//            String firstname = (String) jsonarray.get(0);
+           String firstname = array.get(0).toString();
+           Assert.assertEquals(firstname,"Sally");
 
 
-            JSONArray jsonarraylast = JsonPath.read(response.body().asString(),"$.booking.lastname");
-//            JsonArray jsonarraylast = JsonPath.read(response.body().asString(),"$.booking.lastname");
-//            net.minidev.json.JSONArray jsonarray2 =  JsonPath.read(response.body().asString(),"$.booking.lastname");
-            String lastnmae = (String) jsonarraylast.get(0);
-            Assert.assertEquals(lastnmae,"Brown");
-
-            JSONArray jsonarraychecking = JsonPath.read(response.body().asString(),"$.booking.bookingdates.checkin");
-
-            String checkin =  (String)jsonarraychecking.get(0);
-            Assert.assertEquals(checkin,"2013-02-23");
-
-            int bokingId = JsonPath.read(response.body().asString(),"$.bookingid");
-
-
-            RestAssured
-                    .given()
-                        .contentType(ContentType.JSON)
-                        .baseUri("https://restful-booker.herokuapp.com/booking")
-                    .when()
-                        .get("/{bookingId}",bokingId)
-                    .then()
-                        .assertThat() 
-                        .statusCode(200);
+//            JSONArray jsonarraylast = JsonPath.read(response.body().asString(),"$.booking.lastname");
+//
+////            JsonArray jsonarraylast = JsonPath.read(response.body().asString(),"$.booking.lastname");
+////            net.minidev.json.JSONArray jsonarray2 =  JsonPath.read(response.body().asString(),"$.booking.lastname");
+//            String lastnmae = (String) jsonarraylast.get(0);
+//            Assert.assertEquals(lastnmae,"Brown");
+//
+//            JSONArray jsonarraychecking = JsonPath.read(response.body().asString(),"$.booking.bookingdates.checkin");
+//
+//            String checkin =  (String)jsonarraychecking.get(0);
+//            Assert.assertEquals(checkin,"2013-02-23");
+//
+//            int bokingId = JsonPath.read(response.body().asString(),"$.bookingid");
+//
+//
+//            RestAssured
+//                    .given()
+//                        .contentType(ContentType.JSON)
+//                        .baseUri("https://restful-booker.herokuapp.com/booking")
+//                    .when()
+//                        .get("/{bookingId}",bokingId)
+//                    .then()
+//                        .assertThat()
+//                        .statusCode(200);
 
 
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }

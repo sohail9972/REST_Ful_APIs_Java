@@ -1,12 +1,16 @@
 package testing.ReaptingActions.Pojos;
 
 public class Booking {
+
+//    While Declaring the Variables must Macth the Values of Given Payload Else the
+//    Test Cases Will be failing
     private String firstname;
-    private String lastnaem;
+    private String lastname;
     private String additionalneeds;
     private int totalprice;
     private boolean depositpaid;
-    private BookingDates bookingDates;
+
+    private BookingDates bookingdates;
 
     public Booking(){
 
@@ -14,11 +18,11 @@ public class Booking {
     public Booking(String fname,String lname,String aneeds,
                    int tprice,boolean dpaid,BookingDates dates){
         setFirstname(fname);
-        setLastnaem(lname);
+        setLastname(lname);
         setAdditionalneeds(aneeds);
         setTotalprice(tprice);
         setDepositpaid(dpaid);
-        setBookingDates(dates);
+        setBookingdates(dates);
     }
 
     public String getFirstname() {
@@ -29,12 +33,12 @@ public class Booking {
         this.firstname = firstname;
     }
 
-    public String getLastnaem() {
-        return lastnaem;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastnaem(String lastnaem) {
-        this.lastnaem = lastnaem;
+    public void setLastname(String lastnaem) {
+        this.lastname = lastnaem;
     }
 
     public String getAdditionalneeds() {
@@ -61,13 +65,12 @@ public class Booking {
         this.depositpaid = depositpaid;
     }
 
-    public BookingDates getBookingDates() {
-        return bookingDates;
+    public BookingDates getBookingdates() {
+        return bookingdates;
     }
 
-    public void setBookingDates(BookingDates bookingDates) {
-        this.bookingDates = bookingDates;
+    public void setBookingdates(BookingDates bookingdates) {
+        this.bookingdates = bookingdates;
     }
-
 
 }
