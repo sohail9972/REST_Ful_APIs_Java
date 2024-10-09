@@ -16,8 +16,13 @@ import java.io.IOException;
 import static testing.ReaptingActions.utils.FileNameConstants.*;
 
 public class EndToEndTestCase extends BaseTest {
+
+//    private static final Logger LOGGER = Logger.getLogger(EndToEndTestCase.class);
+
     @Test
     public void ETOERequest() {
+
+//        logger.info("endtoendtest case execution started");
         try {
             String postAPIrequestBody = FileUtils.readFileToString(new File(FileNameConstants.POST_API_REQUEST_BODY), "UTF-8");
 
@@ -129,5 +134,6 @@ public class EndToEndTestCase extends BaseTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+//        logger.info("endtoendtest case execution Ended");
     }
 }
